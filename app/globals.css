@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cinzel:wght@400;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    --background: 240 10% 8%;
+    --foreground: 280 100% 90%;
+    --card: 240 10% 12%;
+    --card-foreground: 280 100% 90%;
+    --popover: 240 10% 12%;
+    --popover-foreground: 280 100% 90%;
+    --primary: 320 100% 72%;
+    --primary-foreground: 240 10% 8%;
+    --secondary: 180 100% 50%;
+    --secondary-foreground: 240 10% 8%;
+    --muted: 240 10% 20%;
+    --muted-foreground: 280 50% 70%;
+    --accent: 150 100% 51%;
+    --accent-foreground: 240 10% 8%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 280 50% 30%;
+    --input: 240 10% 20%;
+    --ring: 320 100% 72%;
+    --radius: 0.5rem;
+    
+    --neon-pink: #FF71CE;
+    --neon-cyan: #01CDFE;
+    --neon-green: #05FFA1;
+    --neon-purple: #B967FF;
+    --dark-bg: #0a0a0f;
+    --grid-color: rgba(185, 103, 255, 0.2);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[#0a0a0f] text-foreground;
+    background-image: 
+      linear-gradient(rgba(185, 103, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(185, 103, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    position: relative;
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(ellipse at top, rgba(255, 113, 206, 0.15), transparent 50%),
+      radial-gradient(ellipse at bottom, rgba(1, 205, 254, 0.15), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+  }
+}
+
+@layer components {
+  .vaporwave-card {
+    @apply bg-gradient-to-br from-[#1a1a2e]/80 to-[#16213e]/80 backdrop-blur-sm;
+    @apply border-2 border-[var(--neon-purple)]/30;
+    @apply shadow-[0_0_20px_rgba(185,103,255,0.3)];
+    position: relative;
+  }
+  
+  .vaporwave-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-cyan), var(--neon-green), var(--neon-purple));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+  }
+  
+  .neon-text {
+    text-shadow: 
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 30px currentColor;
+  }
+  
+  .neon-border {
+    box-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      inset 0 0 5px currentColor;
+  }
+  
+  .grid-bg {
+    background-image: 
+      linear-gradient(rgba(185, 103, 255, 0.1) 2px, transparent 2px),
+      linear-gradient(90deg, rgba(185, 103, 255, 0.1) 2px, transparent 2px);
+    background-size: 30px 30px;
+  }
+  
+  .glitch {
+    position: relative;
+  }
+  
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--neon-cyan);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim 3s infinite linear alternate-reverse;
+  }
+  
+  .glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--neon-pink);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+  }
+  
+  @keyframes glitch-anim {
+    0% { clip: rect(61px, 9999px, 90px, 0); }
+    20% { clip: rect(35px, 9999px, 71px, 0); }
+    40% { clip: rect(67px, 9999px, 23px, 0); }
+    60% { clip: rect(14px, 9999px, 87px, 0); }
+    80% { clip: rect(52px, 9999px, 38px, 0); }
+    100% { clip: rect(26px, 9999px, 65px, 0); }
+  }
+  
+  .vhs-effect {
+    position: relative;
+  }
+  
+  .vhs-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    animation: vhs-scan 8s linear infinite;
+  }
+  
+  @keyframes vhs-scan {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+  }
+  
+  .retro-button {
+    @apply relative overflow-hidden;
+    @apply bg-gradient-to-r from-[var(--neon-pink)] via-[var(--neon-purple)] to-[var(--neon-cyan)];
+    @apply text-[#0a0a0f] font-bold;
+    @apply transition-all duration-300;
+    @apply shadow-[0_0_20px_rgba(255,113,206,0.5)];
+  }
+  
+  .retro-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+  }
+  
+  .retro-button:hover::before {
+    left: 100%;
+  }
+  
+  .retro-button:hover {
+    @apply shadow-[0_0_30px_rgba(255,113,206,0.8)];
+    transform: translateY(-2px);
+  }
+  
+  .status-indicator {
+    @apply relative;
+  }
+  
+  .status-indicator::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { 
+      box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+      opacity: 1;
+    }
+    50% { 
+      box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+      opacity: 0.8;
+    }
+  }
+}
